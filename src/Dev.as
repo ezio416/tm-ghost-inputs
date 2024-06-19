@@ -42,20 +42,20 @@ bool LooksLikeString(CMwNod@ nod, uint offset) {
 const uint16 O_CTNGHOST_PRESTIGE     = GetMemberOffset("CGameCtnGhost", "LightTrailColor")  - 0x10;
 const uint16 O_CTNGHOST_SKINPACKDESC = GetMemberOffset("CGameCtnGhost", "ModelIdentAuthor") + 0x20;
 
-string CGameCtnGhost_GetPrestigeOpts(CGameCtnGhost@ g) {
-    if (g is null || !LooksLikeString(g, O_CTNGHOST_PRESTIGE))
+string CGameCtnGhost_GetPrestigeOpts(CGameCtnGhost@ ghost) {
+    if (ghost is null || !LooksLikeString(ghost, O_CTNGHOST_PRESTIGE))
         return "";
 
-    return Dev::GetOffsetString(g, O_CTNGHOST_PRESTIGE);
+    return Dev::GetOffsetString(ghost, O_CTNGHOST_PRESTIGE);
 }
 
-CSystemPackDesc@ CGameCtnGhost_GetSkin(CGameCtnGhost@ g) {
-    if (!LooksLikePtr(g, O_CTNGHOST_SKINPACKDESC))
+CSystemPackDesc@ CGameCtnGhost_GetSkin(CGameCtnGhost@ ghost) {
+    if (ghost is null || !LooksLikePtr(ghost, O_CTNGHOST_SKINPACKDESC))
         return null;
 
-    auto nod = Dev::GetOffsetNod(g, O_CTNGHOST_SKINPACKDESC);
-    if (nod !is null)
-        return cast<CSystemPackDesc@>(nod);
+    CMwNod@ nod = Dev::GetOffsetNod(ghost, O_CTNGHOST_SKINPACKDESC);
+    if (nod is null)
+        return null;
 
-    return null;
+    return cast<CSystemPackDesc@>(nod);
 }
