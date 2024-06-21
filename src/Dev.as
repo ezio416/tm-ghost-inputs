@@ -238,6 +238,22 @@ void GetInputsFromGhost(CGameCtnGhost@ ghost) {
     const uint dataSize = Dev::ReadUInt32(bufferPtr2 + 0x18 + 0x8);
     print("dataSize: " + dataSize);
 
+    MemoryBuffer@ data = MemoryBuffer();
+
+    for (uint i = 0; i < dataSize; i++)
+        data.Write(Dev::ReadUInt8(dataPtr + i));
+
+    string dataStr;
+
+    for (uint i = 0; i < dataSize; i++) {
+        data.Seek(i);
+        dataStr += Zpad(IntToHex(data.ReadUInt8(), false), 2) + " ";
+    }
+
+    print("data: " + dataStr);
+
+    data.Seek(0);
+
     ;
 }
 
