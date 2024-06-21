@@ -10,8 +10,8 @@ void HoverTooltip(const string &in msg) {
     UI::EndTooltip();
 }
 
-const string IntToHex(const int i, const bool pre = true) {
-    return (pre ? "0x" : "") + Text::Format("%X", i);
+string IntToHex(const int64 i, const bool pre = true) {
+    return (pre ? "0x" : "") + Text::Format("%llX", i);
 }
 
 MemoryBuffer@ ReadFile(const string &in path) {
@@ -27,7 +27,7 @@ MemoryBuffer@ ReadFile(const string &in path) {
     return buf;
 }
 
-const string Zpad(const string &in hex, const uint length) {
+string Zpad(const string &in hex, const uint length) {
     if (uint(hex.Length) >= length)
         return hex;
 
